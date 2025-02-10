@@ -4,51 +4,65 @@
 
 #include <stdio.h>
 
-int main() {
-    char estado[30]; //Essa parte é onde fica as variavel que vamos utilizar
-    char codigo[3];
-    char cidade[40];
-    int populacao;
+// Estrutura para representar uma carta
+typedef struct{
+    char estado[3];
+    char codigo[10];
+    char cidade[50];
+    unsigned long int populacao;
     float area;
-    float densidade;
     float pib;
-    float pibcap;
-    int pturistico;
+    int pontos_turisticos;
+    float densidade_populacional;
+    float pib_per_capita;
+    float super_poder;
+} Carta;
 
-    printf("Digite o nome do Estado:\n");    //Essa parte mostra o que o usuario precisa inserir
-    scanf(" %s", &estado);                    //Esse parte é onde o usurio vai inserir o que foi pedido
+// Função para calcular as propriedades derivadas de uma carta
+void calcular_propriedades(Carta *carta) {
+    carta->densidade_populacional = carta->populacao / carta->area;
+    carta->pib_per_capita = carta->pib / carta->populacao;
+    carta->super_poder = carta->populacao + carta->area + carta->pib + carta->pib_per_capita + carta->densidade_populacional + carta->pontos_turisticos;
+}
 
-    printf("Digite o codigo da carta:\n");   
-    scanf("%s", &codigo);
+// Função para ler os dados de uma carta
+void ler_carta(Carta *carta){
+    printf("Digite o estado da cidade: ");
+    scanf("%s", carta->estado);
+    printf("Digite o código da carta: ");
+    scanf("%s", carta->codigo);
+    printf("Digite o nome da cidade: ");
+    scanf("%s", carta->cidade);
+    printf("Digite a população: ");
+    scanf("%lu", &carta->populacao);
+    printf("Digite a área em km²: ");
+    scanf("%f", &carta->area);
+    printf("Digite o PIB da cidade: ");
+    scanf("%f", &carta->pib);
+    printf("Digite o número de pontos turísticos: ");
+    scanf("%d", &carta->pontos_turisticos);
+    calcular_propriedades(carta);
+}
 
-    printf("Digite o nome da cidade:\n");
-    scanf("%s", &cidade);
+// Função para comparar duas cartas e exibir os resultados
+void comparar_cartas(Carta c1, Carta c2) {
+    printf("\n===== Cadastro Concluído =====\n");
+    printf("População: %lu vs %lu -> %d\n", c1.populacao, c2.populacao, c1.populacao > c2.populacao);
+    printf("Área: %.2f vs %.2f -> %d\n", c1.area, c2.area, c1.area > c2.area);
+    printf("PIB: %.2f vs %.2f -> %d\n", c1.pib, c2.pib, c1.pib > c2.pib);
+    printf("Pontos turísticos: %d vs %d -> %d\n", c1.pontos_turisticos, c2.pontos_turisticos, c1.pontos_turisticos > c2.pontos_turisticos);
+    printf("Densidade populacional: %.2f vs %.2f -> %d\n", c1.densidade_populacional, c2.densidade_populacional, c1.densidade_populacional < c2.densidade_populacional);
+    printf("PIB per capita: %.2f vs %.2f -> %d\n", c1.pib_per_capita, c2.pib_per_capita, c1.pib_per_capita > c2.pib_per_capita);
+    printf("Super Poder: %.2f vs %.2f -> %d\n", c1.super_poder, c2.super_poder, c1.super_poder > c2.super_poder);
+}
 
-    printf("Digite a populacao:\n");
-    scanf("%d", &populacao);
-
-    printf("Digite a area:\n");
-    scanf("%f", &area);
-
-    printf("Digite o PIB:\n");
-    scanf("%f", &pib);
-
-    printf("Digite a quantidade de pontos turisticos:\n");
-    scanf("%d", &pturistico);
-
-    densidade = populacao / area; //Densidade Populacional: População dividida pela área da cidade.
-    pibcap = pib / populacao; //PIB per Capita: PIB total dividido pela população.
+int main() {
+    Carta carta1, carta2;
+    printf("\nCadastro da primeira carta:\n");
+    ler_carta(&carta1);
+    printf("\nCadastro da segunda carta:\n");
+    ler_carta(&carta2);
     
-    printf("\n===== Cadastro Concluído =====\n"); //Aqui é a parte onde mostra para o usuario todas as informações que ele forneceu
-    printf("Estado: %s \n", estado); 
-    printf("Codigo da Carta: %s\n", codigo);
-    printf("Cidade: %s\n", cidade);
-    printf("Populacao: %d habitantes\n", populacao);
-    printf("Area: %.2f km²\n", area);
-    printf("Densidade Populacional: %.2f pessoas/km²\n", densidade);
-    printf("PIB: R$ %.2f bilhoes\n", pib);
-    printf("PIB per Capita: R$ %.2f\n", pibcap);
-    printf("Pontos Turisticos: %d\n", pturistico);
-
+    comparar_cartas(carta1, carta2);
     return 0;
 }
