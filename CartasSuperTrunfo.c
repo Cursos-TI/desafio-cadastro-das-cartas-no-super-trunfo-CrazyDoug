@@ -46,7 +46,7 @@ void ler_carta(Carta *carta){
 
 // Função para comparar duas cartas e exibir os resultados
 void comparar_cartas(Carta c1, Carta c2) {
-    printf("\n===== Cadastro Concluído =====\n");
+    printf("\n===== Comparação entre as Cartas =====\n");
     printf("População: %lu vs %lu -> %d\n", c1.populacao, c2.populacao, c1.populacao > c2.populacao);
     printf("Área: %.2f vs %.2f -> %d\n", c1.area, c2.area, c1.area > c2.area);
     printf("PIB: %.2f vs %.2f -> %d\n", c1.pib, c2.pib, c1.pib > c2.pib);
