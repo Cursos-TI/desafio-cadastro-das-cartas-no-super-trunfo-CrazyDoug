@@ -27,7 +27,7 @@ void calcular_propriedades(Carta *carta) {
 
 // Função para ler os dados de uma carta
 void ler_carta(Carta *carta){
-    printf("Digite o estado da estado: ");
+    printf("Digite o estado da cidade: ");
     scanf("%s", carta->estado);
     printf("Digite o código da carta: ");
     scanf("%s", carta->codigo);
